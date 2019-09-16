@@ -139,7 +139,7 @@ interface SocketClient {
                 response,
                 long
             ).apply {
-                TIMEOUT = TIME_OUT
+                TIMEOUT = if (long)TIME_OUT else 100
                 BOTH_IDLE = IDLE
             }
 

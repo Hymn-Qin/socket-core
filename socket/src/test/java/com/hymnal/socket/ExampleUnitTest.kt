@@ -42,12 +42,21 @@ fun test () {
     val request = "{\"cmd\":\"login\",\"param\":{\"name\":\"qxj\",\"password\":\"123456\"}}"
     logger.info("start")
     val client = SocketClient.Builder()
-        .setType(SocketClient.Type.TCP, true)
+        .setType(SocketClient.Type.TCP, false)
         .setTag("SocketSingle")
         .setIp(ip = "172.17.0.1", port = 7085)
         .setCodecFactory(ProtocolCodecFactoryImpl(Pack(header = "5aa5", HEADER = 2, LENGTH = 4)))
         .setResponse(Response {
 
+            if (it.isSuccess) {
+
+            }
+
+            if (it.isFailure) {
+                if (it.exceptionOrNull() is SocketException) {
+                    logger.info("服务器异常")
+                }
+            }
         })
         .builder()
 

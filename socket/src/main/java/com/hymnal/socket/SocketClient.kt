@@ -50,8 +50,8 @@ interface SocketClient {
         private var type: Type = Type.TCP
 
         private var HEART_TIME = 3000
-        private var TIMEOUT = 15 * 1000
-        private var BOTH_IDLE = 10
+        private var TIME_OUT = 15 * 1000
+        private var IDLE = 10
 
         private var tag: String = "SocketClient"
         private lateinit var ip: String
@@ -95,8 +95,8 @@ interface SocketClient {
         }
 
         fun setTime(timeout: Int, idle: Int = 10): Builder {
-            TIMEOUT = timeout
-            BOTH_IDLE = idle
+            TIME_OUT = timeout
+            IDLE = idle
             return this
         }
 
@@ -139,8 +139,8 @@ interface SocketClient {
                 response,
                 long
             ).apply {
-                TIMEOUT = 15 * 1000
-                BOTH_IDLE = 10
+                TIMEOUT = TIME_OUT
+                BOTH_IDLE = IDLE
             }
 
             return when (type) {
@@ -184,7 +184,7 @@ interface SocketClient {
             //发送频率
             heartBeat.requestInterval = HEART_TIME
             //设置心跳包请求后 等待反馈超时时间。 超过该时间后则调用KeepAliveRequestTimeoutHandler.CLOSE */
-            heartBeat.requestTimeout = TIMEOUT
+            heartBeat.requestTimeout = TIME_OUT
             return heartBeat
         }
     }

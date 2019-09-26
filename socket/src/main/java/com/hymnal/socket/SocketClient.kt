@@ -32,7 +32,7 @@ interface SocketClient {
 
     fun addListener(connector: IoConnector)
 
-    fun send(msg: String?)
+    fun send(msg: Any?)
 
     fun getIsAliveThread(): Boolean
 
@@ -69,7 +69,7 @@ interface SocketClient {
 
         private var response: Response? = null
 
-        private var message: String? = null
+        private var message: Any? = null
 
 
         fun setType(type: Type, long: Boolean = true): Builder {
@@ -89,7 +89,7 @@ interface SocketClient {
             return this
         }
 
-        fun send(message: String): Builder {
+        fun send(message: Any?): Builder {
             this.message = message
             return this
         }
@@ -146,11 +146,11 @@ interface SocketClient {
             return when (type) {
                 Type.TCP -> SocketTcpClient(tag, configuration).apply {
                     startThread()
-                    if (!long) send(message)
+                    if (!long) this.send(message)
                 }
                 Type.UDP -> SocketUdpClient(tag, configuration).apply {
                     startThread()
-                    if (!long) send(message)
+                    if (!long) this.send(message)
                 }
             }
         }

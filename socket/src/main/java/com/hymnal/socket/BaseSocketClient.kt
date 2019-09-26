@@ -112,8 +112,8 @@ abstract class BaseSocketClient(tag: String,protected val config: SocketConfigur
         }
     }
 
-    protected var message: String? = null
-    override fun send(msg: String?) {
+    protected var message: Any? = null
+    override fun send(msg: Any?) {
         this.message = msg ?: return
         session?.let {
             if (it.isConnected) {

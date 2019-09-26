@@ -5,11 +5,14 @@ import com.hymnal.socket.default.ProtocolCodecFactoryImpl
 import org.apache.mina.core.service.IoAcceptor
 import org.apache.mina.core.session.IdleStatus
 import org.apache.mina.filter.codec.ProtocolCodecFilter
+import org.apache.mina.filter.codec.textline.LineDelimiter
+import org.apache.mina.filter.codec.textline.TextLineCodecFactory
 import org.apache.mina.filter.executor.ExecutorFilter
 import org.apache.mina.transport.socket.nio.NioSocketAcceptor
 import org.slf4j.LoggerFactory
 import java.io.IOException
 import java.net.InetSocketAddress
+import java.nio.charset.Charset
 import java.util.concurrent.Executors
 
 
@@ -31,11 +34,18 @@ object MinaServerTest {
                 ExecutorFilter(Executors.newCachedThreadPool())
             )
             // 设置编码过滤器（自定义）
+            val factory = TextLineCodecFactory(
+                Charset.forName("UTF-8"),
+                LineDelimiter.WINDOWS.value,
+                LineDelimiter.WINDOWS.value
+            )
+            factory.decoderMaxLineLength = 1024 * 1024
+            factory.encoderMaxLineLength = 1024 * 1024
+
+            val coder =  ProtocolCodecFilter(factory)//ProtocolCodecFilter(ProtocolCodecFactoryImpl(pack = Pack(header = "5aa5", HEADER = 2, LENGTH = 4)))
             acceptor.getFilterChain().addLast(
                 "mycoder",
-                ProtocolCodecFilter(
-                    ProtocolCodecFactoryImpl(pack = Pack(header = "5aa5", HEADER = 2, LENGTH = 4))
-                )
+                coder
             )
             // 设置缓冲区大小
             acceptor.sessionConfig.readBufferSize = 1024

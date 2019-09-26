@@ -33,6 +33,9 @@ class ExampleUnitTest {
 
 
 fun main(args: Array<String>) {
+//    val a = 123
+//    println()
+
     test()
 }
 
@@ -44,8 +47,8 @@ fun test () {
     val client = SocketClient.Builder()
         .setType(SocketClient.Type.TCP, false)
         .setTag("SocketSingle")
-        .setIp(ip = "172.17.0.1", port = 7085)
-        .setCodecFactory(ProtocolCodecFactoryImpl(Pack(header = "5aa5", HEADER = 2, LENGTH = 4)))
+        .setIp(ip = "10.202.91.98", port = 7085)
+//        .setCodecFactory(ProtocolCodecFactoryImpl(Pack(header = "5aa5", HEADER = 2, LENGTH = 4)))
         .setResponse(Response {
 
             if (it.isSuccess) {
@@ -60,5 +63,5 @@ fun test () {
         })
         .builder()
 
-    client.send(request)
+    client.send(1)
 }

@@ -27,7 +27,7 @@ internal class ServerHandler : IoHandlerAdapter() {
     @Throws(Exception::class)
     override fun messageSent(session: IoSession?, message: Any?) {
         val msg = message.toString()
-        logger.info("服务端发送" + session!!.id + "消息成功：" + msg)
+//        logger.info("服务端发送" + session!!.id + "消息成功：" + msg)
     }
 
     @Throws(Exception::class)

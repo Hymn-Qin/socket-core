@@ -1,6 +1,5 @@
 package com.hymnal.socket.default
 
-import com.hymnal.socket.default.Pack
 import org.apache.mina.core.buffer.IoBuffer
 import org.apache.mina.core.session.IoSession
 import org.apache.mina.filter.codec.CumulativeProtocolDecoder

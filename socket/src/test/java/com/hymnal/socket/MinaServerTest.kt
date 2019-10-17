@@ -8,6 +8,7 @@ import org.apache.mina.filter.codec.ProtocolCodecFilter
 import org.apache.mina.filter.codec.textline.LineDelimiter
 import org.apache.mina.filter.codec.textline.TextLineCodecFactory
 import org.apache.mina.filter.executor.ExecutorFilter
+import org.apache.mina.filter.logging.LoggingFilter
 import org.apache.mina.transport.socket.nio.NioSocketAcceptor
 import org.slf4j.LoggerFactory
 import java.io.IOException
@@ -47,6 +48,7 @@ object MinaServerTest {
                 "mycoder",
                 coder
             )
+            acceptor.getFilterChain().addLast("logger", LoggingFilter())
             // 设置缓冲区大小
             acceptor.sessionConfig.readBufferSize = 1024
             // 设置读写空闲时间

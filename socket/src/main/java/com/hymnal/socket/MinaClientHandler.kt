@@ -8,7 +8,7 @@ internal class MinaClientHandler(private val response: Response?, private val ru
 
     @Throws(Exception::class)
     override fun exceptionCaught(session: IoSession?, cause: Throwable) {
-        super.exceptionCaught(session, cause)
+//        super.exceptionCaught(session, cause)
     }
 
     @Throws(Exception::class)

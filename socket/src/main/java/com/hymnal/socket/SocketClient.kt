@@ -168,7 +168,8 @@ interface SocketClient {
             )
             factory.decoderMaxLineLength = 1024 * 1024
             factory.encoderMaxLineLength = 1024 * 1024
-
+            //Mina2中已经提供了TextLine解码的方式----根据文本的换行符进行解码 \r\n
+            //即看到 \r\n 就结束接受数据，把\r\n前的数据解码为字符串！
             return ProtocolCodecFilter(factory)
         }
 

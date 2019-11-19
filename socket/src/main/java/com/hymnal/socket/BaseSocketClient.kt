@@ -118,7 +118,6 @@ abstract class BaseSocketClient(tag: String,protected val config: SocketConfigur
         session?.let {
             if (it.isConnected) {
                 it.write(msg)
-                message = null
             }
         }
     }

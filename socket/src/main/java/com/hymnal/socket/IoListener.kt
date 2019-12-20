@@ -13,13 +13,13 @@ internal open class IoListener : IoServiceListener {
     @Throws(Exception::class)
     override fun serviceActivated(arg0: IoService) {
         //IoService激活一个服务
-
+        logger.info("服务激活")
     }
 
     @Throws(Exception::class)
     override fun serviceDeactivated(arg0: IoService) {
         //IoService释放服务
-
+        logger.info("释放服务")
     }
 
     @Throws(Exception::class)

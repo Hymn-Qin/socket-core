@@ -48,12 +48,12 @@ fun main(args: Array<String>) {
 fun test () {
 
     val logger = LoggerFactory.getLogger("test")
-    val request = "{\"type\":\"3\"}"
+    val request = "{\"token\":\"60f0429ecd41eae4321114bf64274a02\",\"type\":\"3\"}"
     logger.info("start")
     val client = SocketClient.Builder()
         .setType(SocketClient.Type.TCP, true)
         .setTag("Socket")
-        .setIp(ip = "127.0.0.1", port = 7085)
+        .setIp(ip = "125.124.134.85", port = 8877)
 //        .setCodecFactory(
 ////            ProtocolCodecFactoryImpl(
 ////                SocketProtocolEncoderImpl(),
@@ -64,7 +64,7 @@ fun test () {
         .setResponse(Response {
 
             if (it.isSuccess) {
-                logger.info("返回数据 {}",it.getOrNull())
+//                logger.info("返回数据 {}",it.getOrNull())
 
             }
 

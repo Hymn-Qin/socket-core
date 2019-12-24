@@ -33,7 +33,7 @@ internal class SocketTcpClient(tag: String, config: SocketConfiguration) : BaseS
                 sessionConfig.setIdleTime(IdleStatus.BOTH_IDLE, config.BOTH_IDLE)
 
                 //设置链接超时时间
-                connectTimeoutMillis = (config.TIMEOUT).toLong()
+                connectTimeoutMillis = 15 * 1000
 
                 //设置消息拦截器
                 val ioHandler = MinaClientHandler(config.response) {

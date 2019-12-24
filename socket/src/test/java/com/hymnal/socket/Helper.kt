@@ -12,16 +12,16 @@ internal class ServerHandler : IoHandlerAdapter() {
     override fun messageReceived(session: IoSession?, message: Any?) {
         val msg = message.toString()
         logger.info("服务端接收" + session!!.id + "消息成功：" + msg)
-        val content = amsg
-        //向客户端写入数据
-        val future = session.write(content.toString())
-        //在100毫秒内写完
-        future.awaitUninterruptibly(100)
-        if (future.isWritten) {
-
-        } else {
-
-        }
+//        val content = amsg
+//        //向客户端写入数据
+//        val future = session.write(content.toString())
+//        //在100毫秒内写完
+//        future.awaitUninterruptibly(100)
+//        if (future.isWritten) {
+//
+//        } else {
+//
+//        }
     }
 
     @Throws(Exception::class)

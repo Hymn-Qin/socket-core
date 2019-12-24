@@ -48,22 +48,23 @@ fun main(args: Array<String>) {
 fun test () {
 
     val logger = LoggerFactory.getLogger("test")
-    val request = "{\"cmd\":\"avpIn\",\"param\":{\"vin\":\"11111111111111111\",\"parkSpace\":\"park\"}}"
+    val request = "{\"type\":\"3\"}"
     logger.info("start")
     val client = SocketClient.Builder()
-        .setType(SocketClient.Type.TCP, false)
-        .setTag("SocketSingle")
-        .setIp(ip = "10.202.91.98", port = 7085)
-        .setCodecFactory(
-//            ProtocolCodecFactoryImpl(
-//                SocketProtocolEncoderImpl(),
-//                SocketProtocolDecoderImpl()
-//            )
-            ProtocolCodecFactoryImpl(Pack(header = "5aa5", HEADER = 2, LENGTH = 4))
-        )
+        .setType(SocketClient.Type.TCP, true)
+        .setTag("Socket")
+        .setIp(ip = "127.0.0.1", port = 7085)
+//        .setCodecFactory(
+////            ProtocolCodecFactoryImpl(
+////                SocketProtocolEncoderImpl(),
+////                SocketProtocolDecoderImpl()
+////            )
+//            ProtocolCodecFactoryImpl(Pack(header = "5aa5", HEADER = 2, LENGTH = 4))
+//        )
         .setResponse(Response {
 
             if (it.isSuccess) {
+                logger.info("返回数据 {}",it.getOrNull())
 
             }
 
@@ -73,8 +74,8 @@ fun test () {
                 }
             }
         })
-        .send(request)
         .builder()
+    client.send(request)
 }
 
 /**

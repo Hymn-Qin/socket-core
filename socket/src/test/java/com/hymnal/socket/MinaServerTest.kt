@@ -1,13 +1,14 @@
 package com.hymnal.socket
 
-import com.hymnal.socket.default.Pack
-import com.hymnal.socket.default.ProtocolCodecFactoryImpl
+import org.apache.mina.core.filterchain.IoFilter
 import org.apache.mina.core.service.IoAcceptor
 import org.apache.mina.core.session.IdleStatus
 import org.apache.mina.filter.codec.ProtocolCodecFilter
 import org.apache.mina.filter.codec.textline.LineDelimiter
 import org.apache.mina.filter.codec.textline.TextLineCodecFactory
 import org.apache.mina.filter.executor.ExecutorFilter
+import org.apache.mina.filter.keepalive.KeepAliveFilter
+import org.apache.mina.filter.keepalive.KeepAliveRequestTimeoutHandler
 import org.apache.mina.filter.logging.LoggingFilter
 import org.apache.mina.transport.socket.nio.NioSocketAcceptor
 import org.slf4j.LoggerFactory
@@ -49,6 +50,9 @@ object MinaServerTest {
                 coder
             )
             acceptor.getFilterChain().addLast("logger", LoggingFilter())
+            acceptor.getFilterChain().addLast("heartbeat", createHearBeat())
+
+            acceptor.sessionConfig.isKeepAlive = true
             // 设置缓冲区大小
             acceptor.sessionConfig.readBufferSize = 1024
             // 设置读写空闲时间
@@ -62,6 +66,22 @@ object MinaServerTest {
             logger.error("创建Mina服务端出错：" + e.message)
         }
 
+    }
+
+    private fun createHearBeat(): IoFilter {
+        //设置心跳工程
+        val heartBeatFactory = KeepAliveMessageFactoryImplTest()
+        //当读操作空闲时发送心跳
+        val heartBeat = KeepAliveFilter(heartBeatFactory, IdleStatus.BOTH_IDLE)
+        //设置心跳包请求后超时无反馈情况下的处理机制，默认为关闭连接,在此处设置为输出日志提醒
+        heartBeat.requestTimeoutHandler = KeepAliveRequestTimeoutHandler.CLOSE
+        //是否回发
+        heartBeat.isForwardEvent = true
+        //发送频率
+        heartBeat.requestInterval = 15
+        //设置心跳包请求后 等待反馈超时时间。 超过该时间后则调用KeepAliveRequestTimeoutHandler.CLOSE */
+        heartBeat.requestTimeout = 15
+        return heartBeat
     }
 }
 

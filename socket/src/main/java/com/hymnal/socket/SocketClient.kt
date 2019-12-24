@@ -4,6 +4,7 @@ import org.apache.mina.core.filterchain.IoFilter
 import org.apache.mina.core.future.ConnectFuture
 import org.apache.mina.core.future.IoFuture
 import org.apache.mina.core.service.IoConnector
+import org.apache.mina.core.session.IdleStatus
 import org.apache.mina.core.session.IoSession
 import org.apache.mina.filter.codec.ProtocolCodecFactory
 import org.apache.mina.filter.codec.ProtocolCodecFilter
@@ -49,8 +50,8 @@ interface SocketClient {
 
         private var type: Type = Type.TCP
 
-        private var HEART_TIME = 3000
-        private var TIME_OUT = 15 * 1000
+        private var HEART_TIME = 5
+        private var TIME_OUT = 3
         private var IDLE = 10
 
         private var tag: String = "SocketClient"
@@ -177,11 +178,11 @@ interface SocketClient {
             //设置心跳工程
             val heartBeatFactory = KeepAliveMessageFactoryImpl()
             //当读操作空闲时发送心跳
-            val heartBeat = KeepAliveFilter(heartBeatFactory)
+            val heartBeat = KeepAliveFilter(heartBeatFactory, IdleStatus.BOTH_IDLE)
             //设置心跳包请求后超时无反馈情况下的处理机制，默认为关闭连接,在此处设置为输出日志提醒
-            heartBeat.requestTimeoutHandler = KeepAliveRequestTimeoutHandler.LOG
+            heartBeat.requestTimeoutHandler = KeepAliveRequestTimeoutHandler.CLOSE
             //是否回发
-            heartBeat.isForwardEvent = false
+            heartBeat.isForwardEvent = true
             //发送频率
             heartBeat.requestInterval = HEART_TIME
             //设置心跳包请求后 等待反馈超时时间。 超过该时间后则调用KeepAliveRequestTimeoutHandler.CLOSE */

@@ -47,7 +47,6 @@ abstract class BaseSocketClient(tag: String,protected val config: SocketConfigur
                     throw ConnectorException("Connector error session is null")
                 }
                 init()
-                sleep(1000)
                 send(message)
             } catch (e: RuntimeException) {
                 logger.error("Connector error: {}", e.toString())

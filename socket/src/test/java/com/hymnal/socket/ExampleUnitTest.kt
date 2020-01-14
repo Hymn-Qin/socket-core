@@ -1,7 +1,5 @@
 package com.hymnal.socket
 
-import com.hymnal.socket.default.Pack
-import com.hymnal.socket.default.ProtocolCodecFactoryImpl
 import org.apache.mina.core.buffer.IoBuffer
 import org.apache.mina.core.session.IoSession
 import org.apache.mina.filter.codec.CumulativeProtocolDecoder
@@ -53,7 +51,7 @@ fun test () {
     val client = SocketClient.Builder()
         .setType(SocketClient.Type.TCP, true)
         .setTag("Socket")
-        .setIp(ip = "125.124.134.85", port = 8877)
+        .setIp(ip = "10.202.91.45", port = 8877)
 //        .setCodecFactory(
 ////            ProtocolCodecFactoryImpl(
 ////                SocketProtocolEncoderImpl(),
@@ -64,7 +62,7 @@ fun test () {
         .setResponse(Response {
 
             if (it.isSuccess) {
-//                logger.info("返回数据 {}",it.getOrNull())
+                logger.info("返回数据 {}",it.getOrNull())
 
             }
 

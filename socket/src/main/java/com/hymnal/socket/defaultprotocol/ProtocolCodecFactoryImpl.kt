@@ -1,4 +1,4 @@
-package com.hymnal.socket.default
+package com.hymnal.socket.defaultprotocol
 
 import org.apache.mina.core.session.IoSession
 import org.apache.mina.filter.codec.ProtocolCodecFactory

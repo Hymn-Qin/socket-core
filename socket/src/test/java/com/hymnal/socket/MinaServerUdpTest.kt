@@ -1,7 +1,7 @@
 package com.hymnal.socket
 
-import com.hymnal.socket.default.Pack
-import com.hymnal.socket.default.ProtocolCodecFactoryImpl
+import com.hymnal.socket.defaultprotocol.Pack
+import com.hymnal.socket.defaultprotocol.ProtocolCodecFactoryImpl
 import org.apache.mina.core.service.IoAcceptor
 import org.apache.mina.core.session.ExpiringSessionRecycler
 import org.apache.mina.core.session.IdleStatus

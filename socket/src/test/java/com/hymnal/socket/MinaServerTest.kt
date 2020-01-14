@@ -1,5 +1,7 @@
 package com.hymnal.socket
 
+import com.hymnal.socket.defaultprotocol.Pack
+import com.hymnal.socket.defaultprotocol.ProtocolCodecFactoryImpl
 import org.apache.mina.core.filterchain.IoFilter
 import org.apache.mina.core.service.IoAcceptor
 import org.apache.mina.core.session.IdleStatus
@@ -35,16 +37,25 @@ object MinaServerTest {
                 "threadPool",
                 ExecutorFilter(Executors.newCachedThreadPool())
             )
-            // 设置编码过滤器（自定义）
-            val factory = TextLineCodecFactory(
-                Charset.forName("UTF-8"),
-                LineDelimiter.WINDOWS.value,
-                LineDelimiter.WINDOWS.value
+//            // 设置编码过滤器（自定义）
+//            val factory = TextLineCodecFactory(
+//                Charset.forName("UTF-8"),
+//                LineDelimiter.WINDOWS.value,
+//                LineDelimiter.WINDOWS.value
+//            )
+//            factory.decoderMaxLineLength = 1024 * 1024
+//            factory.encoderMaxLineLength = 1024 * 1024
+//
+//            val coder = ProtocolCodecFilter(factory)
+            val coder = ProtocolCodecFilter(
+                ProtocolCodecFactoryImpl(
+                    pack = Pack(
+                        header = "5aa5",
+                        HEADER = 2,
+                        LENGTH = 4
+                    )
+                )
             )
-            factory.decoderMaxLineLength = 1024 * 1024
-            factory.encoderMaxLineLength = 1024 * 1024
-
-            val coder =  ProtocolCodecFilter(factory)//ProtocolCodecFilter(ProtocolCodecFactoryImpl(pack = Pack(header = "5aa5", HEADER = 2, LENGTH = 4)))
             acceptor.getFilterChain().addLast(
                 "mycoder",
                 coder

@@ -1,4 +1,4 @@
-package com.hymnal.socket.default
+package com.hymnal.socket.defaultprotocol
 
 data class Pack(
     val header: String = "5aa5",
@@ -6,6 +6,8 @@ data class Pack(
     var content: String? = null,
     val LENGTH: Int = 4
 ) {
+    constructor(header: String, HEADER_LENGTH: Int, LENGTH: Int) : this(header = header, HEADER = HEADER_LENGTH, LENGTH = LENGTH)
+
     override fun toString(): String {
         return "Pack[" +
                 "header=" + header +

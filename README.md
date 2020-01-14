@@ -30,7 +30,8 @@ Step 2. Add the dependency
 	}
 
 
-Logger logger = LoggerFactory.getLogger("test");
+```
+        Logger logger = LoggerFactory.getLogger("test");
         SocketClient client = new SocketClient.Builder()
                 .setType(SocketClient.Type.TCP, true)
                 .setTag("Socket")
@@ -56,6 +57,7 @@ Logger logger = LoggerFactory.getLogger("test");
                 .builder();
 
         client.send("{\"token\":\"60f0429ecd41eae4321114bf64274a02\",\"type\":\"3\"}");
+```
 
 
 

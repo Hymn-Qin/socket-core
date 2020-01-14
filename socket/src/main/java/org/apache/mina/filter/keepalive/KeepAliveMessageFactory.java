@@ -39,7 +39,7 @@ public interface KeepAliveMessageFactory {
 
     /**
      * @return <tt>true</tt> if and only if the specified message is a 
-     * keep-alive response message;
+     * keep-alive socketCallback message;
      * 
      * @param session The current session
      * @param message teh message to check
@@ -54,7 +54,7 @@ public interface KeepAliveMessageFactory {
     Object getRequest(IoSession session);
 
     /**
-     * @return a (new) response message for the specified keep-alive request, or <tt>null</tt> if no response is required.
+     * @return a (new) socketCallback message for the specified keep-alive request, or <tt>null</tt> if no socketCallback is required.
      * 
      * @param session The current session
      * @param request The request we are lookig for

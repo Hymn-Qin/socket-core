@@ -24,8 +24,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Tells {@link KeepAliveFilter} what to do when a keep-alive response message
- * was not response within a certain timeout.
+ * Tells {@link KeepAliveFilter} what to do when a keep-alive socketCallback message
+ * was not socketCallback within a certain timeout.
  *
  * @author <a href="http://mina.apache.org">Apache MINA Project</a>
  */
@@ -46,7 +46,7 @@ public interface KeepAliveRequestTimeoutHandler {
         private final Logger LOGGER = LoggerFactory.getLogger(KeepAliveFilter.class);
 
         public void keepAliveRequestTimedOut(KeepAliveFilter filter, IoSession session) throws Exception {
-            LOGGER.warn("A keep-alive response message was not response within " + "{} second(s).",
+            LOGGER.warn("A keep-alive socketCallback message was not socketCallback within " + "{} second(s).",
                     filter.getRequestTimeout());
         }
     };
@@ -56,7 +56,7 @@ public interface KeepAliveRequestTimeoutHandler {
      */
     KeepAliveRequestTimeoutHandler EXCEPTION = new KeepAliveRequestTimeoutHandler() {
         public void keepAliveRequestTimedOut(KeepAliveFilter filter, IoSession session) throws Exception {
-            throw new KeepAliveRequestTimeoutException("A keep-alive response message was not response within "
+            throw new KeepAliveRequestTimeoutException("A keep-alive socketCallback message was not socketCallback within "
                     + filter.getRequestTimeout() + " second(s).");
         }
     };
@@ -68,8 +68,8 @@ public interface KeepAliveRequestTimeoutHandler {
         private final Logger LOGGER = LoggerFactory.getLogger(KeepAliveFilter.class);
 
         public void keepAliveRequestTimedOut(KeepAliveFilter filter, IoSession session) throws Exception {
-            LOGGER.warn("Closing the session because a keep-alive response "
-                    + "message was not response within {} second(s).", filter.getRequestTimeout());
+            LOGGER.warn("Closing the session because a keep-alive socketCallback "
+                    + "message was not socketCallback within {} second(s).", filter.getRequestTimeout());
             session.closeNow();
         }
     };
@@ -84,7 +84,7 @@ public interface KeepAliveRequestTimeoutHandler {
     };
 
     /**
-     * Invoked when {@link KeepAliveFilter} couldn't receive the response for
+     * Invoked when {@link KeepAliveFilter} couldn't receive the socketCallback for
      * the sent keep alive message.
      * 
      * @param filter The filter to use

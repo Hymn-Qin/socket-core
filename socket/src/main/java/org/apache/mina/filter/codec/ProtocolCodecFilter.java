@@ -319,7 +319,7 @@ public class ProtocolCodecFilter extends IoFilterAdapter {
         }
 
         try {
-            // Now we can try to encode the response
+            // Now we can try to encode the socketCallback
             encoder.encode(session, message, encoderOut);
 
             // Send it directly

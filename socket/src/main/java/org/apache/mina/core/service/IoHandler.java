@@ -87,11 +87,11 @@ public interface IoHandler {
     void exceptionCaught(IoSession session, Throwable cause) throws Exception;
 
     /**
-     * Invoked when a message is response.
+     * Invoked when a message is socketCallback.
      * 
      * @param session The session that is receiving a message
-     * @param message The response message
-     * @throws Exception If we get an exception while processing the response message
+     * @param message The socketCallback message
+     * @throws Exception If we get an exception while processing the socketCallback message
      */
     void messageReceived(IoSession session, Object message) throws Exception;
 

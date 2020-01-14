@@ -54,7 +54,7 @@ public interface ProtocolDecoder {
     /**
      * Invoked when the specified <tt>session</tt> is closed.  This method is useful
      * when you deal with the protocol which doesn't specify the length of a message
-     * such as HTTP response without <tt>content-length</tt> header. Implement this
+     * such as HTTP socketCallback without <tt>content-length</tt> header. Implement this
      * method to process the remaining data that {@link #decode(IoSession, IoBuffer, ProtocolDecoderOutput)}
      * method didn't process completely.
      *

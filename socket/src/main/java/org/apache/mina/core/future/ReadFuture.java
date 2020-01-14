@@ -33,7 +33,7 @@ import org.apache.mina.core.session.IoSession;
  * 
  * ReadFuture future = session.read();
  * 
- * // Wait until a message is response.
+ * // Wait until a message is socketCallback.
  * future.awaitUninterruptibly();
  * 
  * try {
@@ -50,13 +50,13 @@ public interface ReadFuture extends IoFuture {
     /**
      * Get the read message.
      * 
-     * @return the response message.  It returns <tt>null</tt> if this
+     * @return the socketCallback message.  It returns <tt>null</tt> if this
      * future is not ready or the associated {@link IoSession} has been closed. 
      */
     Object getMessage();
 
     /**
-     * @return <tt>true</tt> if a message was response successfully.
+     * @return <tt>true</tt> if a message was socketCallback successfully.
      */
     boolean isRead();
 
@@ -78,7 +78,7 @@ public interface ReadFuture extends IoFuture {
      * this future.  This method is invoked by MINA internally.  Please do
      * not call this method directly.
      * 
-     * @param message The response message to store in this future
+     * @param message The socketCallback message to store in this future
      */
     void setRead(Object message);
 

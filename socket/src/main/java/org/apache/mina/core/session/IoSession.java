@@ -117,11 +117,11 @@ public interface IoSession {
      * TODO This javadoc is wrong. The return tag should be short.
      * 
      * @return a {@link ReadFuture} which is notified when a new message is
-     * response, the connection is closed or an exception is caught.  This
+     * socketCallback, the connection is closed or an exception is caught.  This
      * operation is especially useful when you implement a client application.
      * TODO : Describe here how we enable this feature.
      * However, please note that this operation is disabled by default and
-     * throw {@link IllegalStateException} because all response events must be
+     * throw {@link IllegalStateException} because all socketCallback events must be
      * queued somewhere to support this operation, possibly leading to memory
      * leak.  This means you have to keep calling {@link #read()} once you
      * enabled this operation.  To enable this operation, please call
@@ -153,10 +153,10 @@ public interface IoSession {
      * the message actually written.
      * <p>
      * When you implement a client that receives a broadcast message from a server
-     * such as DHCP server, the client might need to send a response message for the
+     * such as DHCP server, the client might need to send a socketCallback message for the
      * broadcast message the server sent.  Because the remote address of the session
      * is not the address of the server in case of broadcasting, there should be a
-     * way to specify the destination when you write the response message.
+     * way to specify the destination when you write the socketCallback message.
      * This interface provides {@link #write(Object, SocketAddress)} method so you
      * can specify the destination.
      * 

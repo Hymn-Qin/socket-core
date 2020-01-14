@@ -34,7 +34,7 @@ import org.apache.mina.core.write.WriteRequest;
 
 /**
  * An {@link IoFilter} that sends a keep-alive request on
- * {@link IoEventType#SESSION_IDLE} and sends back the response for the
+ * {@link IoEventType#SESSION_IDLE} and sends back the socketCallback for the
  * sent keep-alive request.
  *
  * <h2>Interference with {@link IoSessionConfig#setIdleTime(IdleStatus, int)}</h2>
@@ -51,7 +51,7 @@ import org.apache.mina.core.write.WriteRequest;
  * <h2>Implementing {@link KeepAliveMessageFactory}</h2>
  *
  * To use this filter, you have to provide an implementation of
- * {@link KeepAliveMessageFactory}, which determines a response or sent
+ * {@link KeepAliveMessageFactory}, which determines a socketCallback or sent
  * message is a keep-alive message or not and creates a new keep-alive
  * message:
  *
@@ -63,10 +63,10 @@ import org.apache.mina.core.write.WriteRequest;
  *     <td>Active</td>
  *     <td>
  *       You want a keep-alive request is sent when the reader is idle.
- *       Once the request is sent, the response for the request should be
- *       response within <tt>keepAliveRequestTimeout</tt> seconds.  Otherwise,
+ *       Once the request is sent, the socketCallback for the request should be
+ *       socketCallback within <tt>keepAliveRequestTimeout</tt> seconds.  Otherwise,
  *       the specified {@link KeepAliveRequestTimeoutHandler} will be invoked.
- *       If a keep-alive request is response, its response also should be sent back.
+ *       If a keep-alive request is socketCallback, its socketCallback also should be sent back.
  *     </td>
  *     <td>
  *       Both {@link KeepAliveMessageFactory#getRequest(IoSession)} and
@@ -78,8 +78,8 @@ import org.apache.mina.core.write.WriteRequest;
  *     <td>Semi-active</td>
  *     <td>
  *       You want a keep-alive request to be sent when the reader is idle.
- *       However, you don't really care if the response is response or not.
- *       If a keep-alive request is response, its response should
+ *       However, you don't really care if the socketCallback is socketCallback or not.
+ *       If a keep-alive request is socketCallback, its socketCallback should
  *       also be sent back.
  *     </td>
  *     <td>
@@ -95,7 +95,7 @@ import org.apache.mina.core.write.WriteRequest;
  *     <td>Passive</td>
  *     <td>
  *       You don't want to send a keep-alive request by yourself, but the
- *       response should be sent back if a keep-alive request is response.
+ *       socketCallback should be sent back if a keep-alive request is socketCallback.
  *     </td>
  *     <td>
  *       {@link KeepAliveMessageFactory#getRequest(IoSession)} must return
@@ -107,7 +107,7 @@ import org.apache.mina.core.write.WriteRequest;
  *     <td>Deaf Speaker</td>
  *     <td>
  *       You want a keep-alive request to be sent when the reader is idle, but
- *       you don't want to send any response back.
+ *       you don't want to send any socketCallback back.
  *     </td>
  *     <td>
  *       {@link KeepAliveMessageFactory#getRequest(IoSession)} must return
@@ -121,7 +121,7 @@ import org.apache.mina.core.write.WriteRequest;
  *     <td>Silent Listener</td>
  *     <td>
  *       You don't want to send a keep-alive request by yourself nor send any
- *       response back.
+ *       socketCallback back.
  *     </td>
  *     <td>
  *       Both {@link KeepAliveMessageFactory#getRequest(IoSession)} and
@@ -139,7 +139,7 @@ import org.apache.mina.core.write.WriteRequest;
  * <h2>Handling timeout</h2>
  *
  * {@link KeepAliveFilter} will notify its {@link KeepAliveRequestTimeoutHandler}
- * when {@link KeepAliveFilter} didn't receive the response message for a sent
+ * when {@link KeepAliveFilter} didn't receive the socketCallback message for a sent
  * keep-alive message.  The default handler is {@link KeepAliveRequestTimeoutHandler#CLOSE},
  * but you can use other presets such as {@link KeepAliveRequestTimeoutHandler#NOOP},
  * {@link KeepAliveRequestTimeoutHandler#LOG} or {@link KeepAliveRequestTimeoutHandler#EXCEPTION}.
@@ -150,8 +150,8 @@ import org.apache.mina.core.write.WriteRequest;
  * {@link KeepAliveRequestTimeoutHandler#DEAF_SPEAKER} is a special handler which is
  * dedicated for the 'deaf speaker' mode mentioned above.  Setting the
  * <tt>timeoutHandler</tt> property to {@link KeepAliveRequestTimeoutHandler#DEAF_SPEAKER}
- * stops this filter from waiting for response messages and therefore disables
- * response timeout detection.
+ * stops this filter from waiting for socketCallback messages and therefore disables
+ * socketCallback timeout detection.
  *
  * @author <a href="http://mina.apache.org">Apache MINA Project</a>
  * @org.apache.xbean.XBean
@@ -448,7 +448,7 @@ public class KeepAliveFilter extends IoFilterAdapter {
                     nextFilter.filterWrite(session, new DefaultWriteRequest(pingMessage));
 
                     // If policy is OFF, there's no need to wait for
-                    // the response.
+                    // the socketCallback.
                     if (getRequestTimeoutHandler() != KeepAliveRequestTimeoutHandler.DEAF_SPEAKER) {
                         markStatus(session);
                         if (interestedIdleStatus == IdleStatus.BOTH_IDLE) {

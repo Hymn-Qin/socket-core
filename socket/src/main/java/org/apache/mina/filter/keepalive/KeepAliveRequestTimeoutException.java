@@ -20,8 +20,8 @@
 package org.apache.mina.filter.keepalive;
 
 /**
- * A {@link RuntimeException} which is thrown when a keep-alive response
- * message was not response within a certain timeout.
+ * A {@link RuntimeException} which is thrown when a keep-alive socketCallback
+ * message was not socketCallback within a certain timeout.
  * 
  * @author <a href="http://mina.apache.org">Apache MINA Project</a>
  */

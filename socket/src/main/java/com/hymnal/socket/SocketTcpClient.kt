@@ -36,7 +36,7 @@ internal class SocketTcpClient(tag: String, config: SocketConfiguration) : BaseS
                 connectTimeoutMillis = 15 * 1000
 
                 //设置消息拦截器
-                val ioHandler = MinaClientHandler(config.response) {
+                val ioHandler = MinaClientHandler(config.socketCallback) {
                     if (!config.long) close()
                 }
                 handler = ioHandler

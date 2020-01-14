@@ -8,7 +8,7 @@ data class SocketConfiguration(
     val loggerIoFilterAdapter: IoFilter,
     val heartBeat: IoFilter?,
     val protocolCodecIoFilterAdapter: IoFilter,
-    val response: Response?,
+    val socketCallback: SocketCallback?,
     val long: Boolean = true
 ) {
 

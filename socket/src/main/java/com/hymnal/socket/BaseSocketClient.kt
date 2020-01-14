@@ -55,10 +55,10 @@ abstract class BaseSocketClient(tag: String,protected val config: SocketConfigur
 
                 //如果是短链接或者重试次数过多抛出异常 不进行重试操作
                 if (!config.long) {
-                    config.response?.response(Result.failure(SocketException("Socket error, $e")))
+                    config.socketCallback?.result(Result.failure(SocketException("Socket error, $e")))
                     return@with this
                 }
-                config.response?.response(Result.failure(e))
+                config.socketCallback?.result(Result.failure(e))
                 if (running) {
                     val time = 1500L
                     sleep(time)
@@ -117,8 +117,13 @@ abstract class BaseSocketClient(tag: String,protected val config: SocketConfigur
         this.message = msg
         session?.let {
             if (it.isConnected) {
-                logger.info("send msg: {}", msg)
-                it.write(msg)
+                if (msg != null) {
+                    logger.info("send msg: {}", msg)
+                    it.write(msg)
+                } else {
+                    logger.error("send msg is not null")
+                }
+
             }
         }
     }

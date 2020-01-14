@@ -6,7 +6,6 @@ import org.apache.mina.filter.codec.CumulativeProtocolDecoder
 import org.apache.mina.filter.codec.ProtocolDecoderOutput
 import org.slf4j.LoggerFactory
 import java.nio.charset.Charset
-import java.util.*
 
 /**
  * 自定义解码器
@@ -31,13 +30,13 @@ class ProtocolDecoderImpl(private val charset: Charset, private val pack: Pack) 
             System.arraycopy(bytes, 0, headerBytes, 0, pack.HEADER)
             val header = Pack.bytesToHex(headerBytes)
 
-            logger.info("解码包头：{}", header)
+//            logger.info("解码包头：{}", header)
             val length =
                 if (header == pack.header) {
                     //消息总长度
                     val lengthBytes = ByteArray(pack.LENGTH)
                     System.arraycopy(bytes, pack.HEADER, lengthBytes, 0, pack.LENGTH)
-                    logger.info("解码长度 ${Arrays.toString(lengthBytes)}：{}", Pack.getBytesToInt(lengthBytes))
+//                    logger.info("解码长度 ${Arrays.toString(lengthBytes)}：{}", Pack.getBytesToInt(lengthBytes))
                     Pack.getBytesToInt(lengthBytes) + PACK_HEAD_LEN
                 } else {
                     p1.limit()

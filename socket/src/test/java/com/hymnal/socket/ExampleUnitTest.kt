@@ -1,11 +1,14 @@
 package com.hymnal.socket
 
+import com.hymnal.socket.defaultprotocol.Pack
+import com.hymnal.socket.defaultprotocol.ProtocolCodecFactoryImpl
 import org.apache.mina.core.buffer.IoBuffer
 import org.apache.mina.core.session.IoSession
 import org.apache.mina.filter.codec.CumulativeProtocolDecoder
 import org.apache.mina.filter.codec.ProtocolDecoderOutput
 import org.apache.mina.filter.codec.ProtocolEncoder
 import org.apache.mina.filter.codec.ProtocolEncoderOutput
+import org.json.JSONObject
 import org.junit.Test
 import org.junit.Assert.*
 import org.slf4j.LoggerFactory
@@ -51,18 +54,21 @@ fun test () {
     val client = SocketClient.Builder()
         .setType(SocketClient.Type.TCP, true)
         .setTag("Socket")
-        .setIp(ip = "10.202.91.45", port = 8877)
-//        .setCodecFactory(
+        .setIp(ip = "10.202.40.218", port = 10005)
+        .setCodecFactory(
 ////            ProtocolCodecFactoryImpl(
 ////                SocketProtocolEncoderImpl(),
 ////                SocketProtocolDecoderImpl()
 ////            )
-//            ProtocolCodecFactoryImpl(Pack(header = "5aa5", HEADER = 2, LENGTH = 4))
-//        )
-        .setResponse(Response {
+            ProtocolCodecFactoryImpl(Pack(header = "5aa5", HEADER = 2, LENGTH = 4))
+        )
+        .setSocketCallBack(SocketCallback {
 
             if (it.isSuccess) {
-                logger.info("返回数据 {}",it.getOrNull())
+
+                logger.info("返回数据 {}", it.getOrNull())
+//                val jsonObject = JSONObject(it.getOrThrow())
+//                val code = jsonObject.getInt("code")
 
             }
 
@@ -70,10 +76,11 @@ fun test () {
                 if (it.exceptionOrNull() is SocketException) {
                     logger.info("服务器异常")
                 }
+                logger.info("服务器异常")
             }
         })
         .builder()
-    client.send(request)
+//    client.send(request)
 }
 
 /**

@@ -35,7 +35,7 @@ internal class SocketUdpClient(tag: String, config: SocketConfiguration) : BaseS
                 connectTimeoutMillis = (config.TIMEOUT).toLong()
 
                 //设置消息拦截器
-                val ioHandler = MinaClientHandler(config.response) {
+                val ioHandler = MinaClientHandler(config.socketCallback) {
                     if (!config.long) close()
                 }
                 handler = ioHandler

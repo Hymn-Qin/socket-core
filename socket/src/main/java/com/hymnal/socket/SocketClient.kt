@@ -68,7 +68,7 @@ interface SocketClient {
 
         private lateinit var protocolCodecIoFilterAdapter: IoFilter
 
-        private var response: Response? = null
+        private var socketCallback: SocketCallback? = null
 
         private var message: Any? = null
 
@@ -112,8 +112,8 @@ interface SocketClient {
             return this
         }
 
-        fun setResponse(response: Response): Builder {
-            this.response = response
+        fun setSocketCallBack(socketCallback: SocketCallback): Builder {
+            this.socketCallback = socketCallback
             return this
         }
 
@@ -137,7 +137,7 @@ interface SocketClient {
                 loggerIoFilterAdapter,
                 hearBeat,
                 protocolCodecIoFilterAdapter,
-                response,
+                socketCallback,
                 long
             ).apply {
                 TIMEOUT = if (long)TIME_OUT else 2000

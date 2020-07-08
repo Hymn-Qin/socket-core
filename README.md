@@ -24,7 +24,7 @@ Add it in your root build.gradle at the end of repositories:
 Step 2. Add the dependency
 
 	dependencies {
-	        implementation 'com.github.Hymnal-Qin:socket-core:v1.1.0'
+	        implementation 'com.github.Hymnal-Qin:socket-core:v1.2.1'
 		//可以依赖
 		implementation 'org.slf4j:slf4j-api:1.7.26'
 	}
